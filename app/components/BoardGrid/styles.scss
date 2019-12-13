@@ -1,0 +1,35 @@
+// Should these styles be in Game/styles.scss?
+
+$squareDimension: 100px;
+
+.BoardGrid {
+  display: inline-grid;
+  grid-gap: 1px;
+  background-color: #333;
+  border: 1px solid #333;
+}
+
+.BoardGrid--finished {
+  background-color: red;
+}
+
+.BoardGrid-Square {
+  height: $squareDimension;
+  width: $squareDimension;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: $squareDimension / 2;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  .BoardGrid--finished & {
+    background-color: #ddd;
+  }
+}
