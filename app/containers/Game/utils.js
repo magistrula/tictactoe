@@ -1,3 +1,6 @@
+// Should these be in the reducer?
+import { PLAYER_X, PLAYER_O } from './constants';
+
 export function buildInitialSquaresMap(boardSize) {
   const numSquares = boardSize ** 2;
   const squareIds = new Array(numSquares).fill(null).map((_, idx) => idx);
@@ -23,9 +26,13 @@ export function buildWinningCombinations(squareIds) {
 
   const diagCombos = squareIds.reduce(
     (acc, id, idx, arr) => {
-      if (idx === 0 || idx === arr.length - 1 || idx % (boardWidth + 1) === 0) {
+      const isFirst = idx === 0;
+      const isLast = idx === arr.length - 1;
+      if (isFirst || isLast || idx % (boardWidth + 1) === 0) {
         acc[0].push(id);
-      } else if (idx % (boardWidth - 1) === 0) {
+      }
+
+      if (!isFirst && !isLast && idx % (boardWidth - 1) === 0) {
         acc[1].push(id);
       }
 
@@ -35,6 +42,10 @@ export function buildWinningCombinations(squareIds) {
   );
 
   return [...rowCombos, ...colCombos, ...diagCombos];
+}
+
+export function computeNextPlayerForGameStep(stepNumber) {
+  return stepNumber % 2 === 0 ? PLAYER_X : PLAYER_O;
 }
 
 export function computeWinningValue(squaresMap, winningCombos) {

@@ -1,35 +1,47 @@
 // Should these styles be in Game/styles.scss?
-
-$squareDimension: 100px;
+$BoardGrid-squareDimension: 100px;
+$BoardGrid-red: lightcoral;
+$BoardGrid-yellow: lightyellow;
+$BoardGrid-hoverColor: lightgray;
 
 .BoardGrid {
   display: inline-grid;
   grid-gap: 1px;
-  background-color: #333;
-  border: 1px solid #333;
+  background-color: gray;
+  border: 1px solid gray;
 }
 
-.BoardGrid--finished {
-  background-color: red;
+.BoardGrid--won {
+  background-color: $BoardGrid-red;
+  border-color: $BoardGrid-red;
+}
+
+.BoardGrid--catsGame {
+  background-color: $BoardGrid-yellow;
+  border-color: $BoardGrid-yellow;
 }
 
 .BoardGrid-Square {
-  height: $squareDimension;
-  width: $squareDimension;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  font-size: $squareDimension / 2;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  height: $BoardGrid-squareDimension;
+  width: $BoardGrid-squareDimension;
+  border-color: transparent;
+  font-size: $BoardGrid-squareDimension / 2;
 
-  &:focus {
+  &:hover {
+    background-color: $BoardGrid-hoverColor;
+  }
+
+  &:focus, &:active {
     outline: none;
   }
 
-  .BoardGrid--finished & {
-    background-color: #ddd;
+  .BoardGrid--won & {
+    pointer-events: none;
+    background-color: $BoardGrid-yellow;
+  }
+
+  .BoardGrid--catsGame & {
+    pointer-events: none;
+    background-color: $BoardGrid-red;
   }
 }

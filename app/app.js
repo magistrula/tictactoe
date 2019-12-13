@@ -1,12 +1,24 @@
+// Needed for redux-saga es6 generator support
+import '@babel/polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import Game from 'components/Game';
+import App from 'containers/App';
+import history from 'utils/history';
+import configureStore from './configureStore';
 import './styles.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const GAME_BOARD_SIZE = 3;
+const MOUNT_NODE = document.getElementById('app');
+
+const initialState = {};
+const store = configureStore(initialState, history);
 
 ReactDOM.render(
-  <Game size={GAME_BOARD_SIZE} />,
-  document.getElementById('app'),
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  MOUNT_NODE,
 );
