@@ -3,84 +3,84 @@ import { initialState } from './reducer';
 
 import { PLAYER_X, PLAYER_O } from './constants';
 
-const selectGameDomain = state => state.game || initialState;
+const selectTicTacToeDomain = state => state.ticTacToe || initialState;
 
 // Should I be using this somewhere?
-const makeSelectGame = () =>
+const makeSelectTicTacToe = () =>
   createSelector(
-    selectGameDomain,
+    selectTicTacToeDomain,
     substate => substate,
   );
 
 const selectBoardSize = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ boardSize }) => boardSize,
 );
 
 const selectCurrSquaresMap = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ gameSteps, stepNumber }) =>
     (gameSteps[stepNumber] && gameSteps[stepNumber].squaresMap) || new Map(),
 );
 
 const selectCurrStepNumber = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ stepNumber }) => stepNumber,
 );
 
 const selectGameSteps = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ gameSteps }) => gameSteps,
 );
 
 const selectIsCatsGame = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ boardSize, stepNumber, winner }) =>
     stepNumber === boardSize ** 2 && !winner,
 );
 
 const selectMaxBoardSize = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ maxBoardSize }) => maxBoardSize,
 );
 
 const selectMinBoardSize = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ minBoardSize }) => minBoardSize,
 );
 
 const selectNextPlayer = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ squareLabels, nextPlayer }) => squareLabels[nextPlayer],
 );
 
 const selectPlayerLabelOptions = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ playerLabelOptions }) => playerLabelOptions,
 );
 
 // Is this allowed? A selector that returns a function?
 const selectSquareLabelForPlayer = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ squareLabels }) => player => squareLabels[player],
 );
 
 const selectXLabel = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ squareLabels }) => squareLabels[PLAYER_X],
 );
 
 const selectOLabel = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ squareLabels }) => squareLabels[PLAYER_O],
 );
 
 const selectWinner = createSelector(
-  selectGameDomain,
+  selectTicTacToeDomain,
   ({ squareLabels, winner }) => squareLabels[winner],
 );
 
-export default makeSelectGame;
+export default makeSelectTicTacToe;
 
 // So many selectors! Is this normal?
 export {

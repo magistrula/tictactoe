@@ -93,7 +93,7 @@ const HANDLERS = {
   }),
 };
 
-const gameReducer = (state = initialState, action) =>
+const ticTacToeReducer = (state = initialState, action) =>
   HANDLERS[action.type] ? HANDLERS[action.type](state, action.payload) : state;
 
-export default gameReducer;
+export default ticTacToeReducer;

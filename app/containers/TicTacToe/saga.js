@@ -32,6 +32,6 @@ export function* setBoardSizeSaga({ payload: boardSize }) {
   }
 }
 
-export default function* gameSaga() {
+export default function* ticTacToeSaga() {
   yield takeEvery(SET_BOARD_SIZE, setBoardSizeSaga);
 }

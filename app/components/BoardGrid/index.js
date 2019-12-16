@@ -30,7 +30,7 @@ function SquaresCollection(squaresMap, getSquareLabel, clickSquare) {
   });
 }
 
-// Should this be Game/BoardGrid?
+// Should this be TicTacToe/BoardGrid?
 function BoardGrid({
   className,
   clickSquare,

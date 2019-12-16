@@ -1,8 +1,8 @@
 import React from 'react';
-import Game from 'containers/Game';
+import TicTacToe from 'containers/TicTacToe';
 
 function App() {
-  return <Game className="p-5" />;
+  return <TicTacToe className="p-5" />;
 }
 
 export default App;

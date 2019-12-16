@@ -33,7 +33,7 @@ import {
   selectWinner,
 } from './selectors';
 
-function Game({
+function TicTacToe({
   boardSize,
   className,
   clickSquare,
@@ -54,8 +54,8 @@ function Game({
   oLabel,
   winner,
 }) {
-  useInjectReducer({ key: 'game', reducer });
-  useInjectSaga({ key: 'game', saga });
+  useInjectReducer({ key: 'ticTacToe', reducer });
+  useInjectSaga({ key: 'ticTacToe', saga });
 
   if (!currSquaresMap.size) {
     initGame();
@@ -122,7 +122,7 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-Game.propTypes = {
+TicTacToe.propTypes = {
   boardSize: PropTypes.number,
   className: PropTypes.string,
   clickSquare: PropTypes.func.isRequired,
@@ -144,4 +144,4 @@ Game.propTypes = {
   winner: PropTypes.string,
 };
 
-export default compose(withConnect)(Game);
+export default compose(withConnect)(TicTacToe);
