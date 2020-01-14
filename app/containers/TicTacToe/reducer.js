@@ -8,6 +8,7 @@ import {
   PLAYER_X,
   PLAYER_O,
   PLAYER_LABEL_OPTIONS,
+  SET_BOARD_SIZE,
   SET_X_LABEL,
   SET_O_LABEL,
 } from './constants';
@@ -55,16 +56,9 @@ const HANDLERS = {
     };
   },
 
-  [INIT_GAME]: (state, boardSize) => {
-    const initialSquaresMap = buildInitialSquaresMap(boardSize);
-    const squareIds = Array.from(initialSquaresMap.keys());
-    return {
-      ...initialState,
-      boardSize,
-      gameSteps: [{ squaresMap: initialSquaresMap }],
-      winningSquareIdCombos: buildWinningCombinations(squareIds),
-    };
-  },
+  [INIT_GAME]: () => ({
+    ...initialState,
+  }),
 
   [JUMP_TO_STEP]: (state, stepNumber) => {
     const { squaresMap } = state.gameSteps[stepNumber];
@@ -73,6 +67,17 @@ const HANDLERS = {
       stepNumber,
       nextPlayer: computeNextPlayerForGameStep(stepNumber),
       winner: computeWinningValue(squaresMap, state.winningSquareIdCombos),
+    };
+  },
+
+  [SET_BOARD_SIZE]: (state, boardSize) => {
+    const initialSquaresMap = buildInitialSquaresMap(boardSize);
+    const squareIds = Array.from(initialSquaresMap.keys());
+    return {
+      ...state,
+      boardSize,
+      gameSteps: [{ squaresMap: initialSquaresMap }],
+      winningSquareIdCombos: buildWinningCombinations(squareIds),
     };
   },
 

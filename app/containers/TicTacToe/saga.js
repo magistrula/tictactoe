@@ -1,37 +1,34 @@
 import { put, select, takeEvery } from 'redux-saga/effects';
 
-import { SET_BOARD_SIZE } from './constants';
-import { initGame } from './actions';
-import {
-  selectCurrStepNumber,
-  selectMaxBoardSize,
-  selectMinBoardSize,
-} from './selectors';
+import { DEFAULT_BOARD_SIZE, INIT_GAME, SET_BOARD_SIZE } from './constants';
+import { initGame, setBoardSize } from './actions';
+import { selectBoardSize } from './selectors';
+
+export function* initGameSaga() {
+  let boardSize;
+  try {
+    boardSize = parseInt(localStorage.getItem('boardSize'), 10);
+  } catch (e) {
+    console.warn('localStorage is not available');
+  }
+
+  return yield put(setBoardSize(boardSize || DEFAULT_BOARD_SIZE));
+}
 
 export function* setBoardSizeSaga({ payload: boardSize }) {
-  if (!boardSize) {
-    return;
+  try {
+    localStorage.setItem('boardSize', boardSize);
+  } catch (e) {
+    console.warn('localStorage not available');
   }
 
-  const minBoardSize = yield select(selectMinBoardSize);
-  const maxBoardSize = yield select(selectMaxBoardSize);
-  if (
-    typeof boardSize !== 'number' ||
-    boardSize < minBoardSize ||
-    boardSize > maxBoardSize
-  ) {
-    return window.alert('Please enter a number between 3 and 10');
-  }
-
-  const stepNumber = yield select(selectCurrStepNumber);
-  if (
-    stepNumber === 0 ||
-    window.confirm(`Start a new ${boardSize}x${boardSize} game?`)
-  ) {
-    return yield put(initGame(boardSize));
+  const currBoardSize = yield select(selectBoardSize);
+  if (boardSize !== currBoardSize) {
+    return yield put(initGame());
   }
 }
 
 export default function* ticTacToeSaga() {
+  yield takeEvery(INIT_GAME, initGameSaga);
   yield takeEvery(SET_BOARD_SIZE, setBoardSizeSaga);
 }

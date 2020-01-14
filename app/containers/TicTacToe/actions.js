@@ -1,6 +1,5 @@
 import {
   CLICK_SQUARE,
-  DEFAULT_BOARD_SIZE,
   INIT_GAME,
   JUMP_TO_STEP,
   SET_BOARD_SIZE,
@@ -15,11 +14,8 @@ export function clickSquare(squareId) {
   };
 }
 
-export function initGame(boardSize) {
-  return {
-    type: INIT_GAME,
-    payload: boardSize || DEFAULT_BOARD_SIZE,
-  };
+export function initGame() {
+  return { type: INIT_GAME };
 }
 
 export function jumpToStep(stepNumber) {
