@@ -25,7 +25,7 @@ export const initialState = {
   minBoardSize: MIN_BOARD_SIZE,
   nextPlayer: computeNextPlayerForGameStep(0),
   playerLabelOptions: PLAYER_LABEL_OPTIONS,
-  squareLabels: {
+  playerLabels: {
     [PLAYER_X]: PLAYER_LABEL_OPTIONS[0],
     [PLAYER_O]: PLAYER_LABEL_OPTIONS[1],
   },
@@ -78,16 +78,16 @@ const HANDLERS = {
 
   [SET_X_LABEL]: (state, label) => ({
     ...state,
-    squareLabels: {
+    playerLabels: {
       [PLAYER_X]: label,
-      [PLAYER_O]: state.squareLabels[PLAYER_O],
+      [PLAYER_O]: state.playerLabels[PLAYER_O],
     },
   }),
 
   [SET_O_LABEL]: (state, label) => ({
     ...state,
-    squareLabels: {
-      [PLAYER_X]: state.squareLabels[PLAYER_X],
+    playerLabels: {
+      [PLAYER_X]: state.playerLabels[PLAYER_X],
       [PLAYER_O]: label,
     },
   }),

@@ -51,7 +51,7 @@ const selectMinBoardSize = createSelector(
 
 const selectNextPlayer = createSelector(
   selectTicTacToeDomain,
-  ({ squareLabels, nextPlayer }) => squareLabels[nextPlayer],
+  ({ playerLabels, nextPlayer }) => playerLabels[nextPlayer],
 );
 
 const selectPlayerLabelOptions = createSelector(
@@ -62,22 +62,22 @@ const selectPlayerLabelOptions = createSelector(
 // Is this allowed? A selector that returns a function?
 const selectSquareLabelForPlayer = createSelector(
   selectTicTacToeDomain,
-  ({ squareLabels }) => player => squareLabels[player],
+  ({ playerLabels }) => player => playerLabels[player],
 );
 
 const selectXLabel = createSelector(
   selectTicTacToeDomain,
-  ({ squareLabels }) => squareLabels[PLAYER_X],
+  ({ playerLabels }) => playerLabels[PLAYER_X],
 );
 
 const selectOLabel = createSelector(
   selectTicTacToeDomain,
-  ({ squareLabels }) => squareLabels[PLAYER_O],
+  ({ playerLabels }) => playerLabels[PLAYER_O],
 );
 
 const selectWinner = createSelector(
   selectTicTacToeDomain,
-  ({ squareLabels, winner }) => squareLabels[winner],
+  ({ playerLabels, winner }) => playerLabels[winner],
 );
 
 export default makeSelectTicTacToe;
