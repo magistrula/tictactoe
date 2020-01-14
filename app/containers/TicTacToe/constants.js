@@ -1,5 +1,5 @@
 const PLAYER_LABEL_STRINGS =
-  '✕○✅❎♥♡♠♤♦♢♣♧♚♔♛♕♜♖♝♗♞♘♟♙★☆♩♪♫♬☁☔☀❄⚡☃☘☕⚽⚾☮☸⚛';
+  '✕○❎✅♥♡♠♤♦♢♣♧♚♔♛♕♜♖♝♗♞♘♟♙★☆♩♪♫♬☁☔☀❄⚡☃☘☕⚽⚾☮☸⚛';
 
 export const CLICK_SQUARE = 'app/TicTacToe/CLICK_SQUARE';
 export const DEFAULT_BOARD_SIZE = 3;
