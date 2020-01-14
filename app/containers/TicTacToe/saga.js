@@ -1,4 +1,4 @@
-import { put, select, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 import {
   DEFAULT_BOARD_SIZE,
@@ -7,61 +7,48 @@ import {
   SET_O_LABEL,
   SET_X_LABEL,
 } from './constants';
-import { initGame, setBoardSize, setOLabel, setXLabel } from './actions';
-import { selectBoardSize } from './selectors';
+import { setBoardSize, setOLabel, setXLabel } from './actions';
 
 export function* initGameSaga() {
-  let boardSize;
-  try {
-    boardSize = parseInt(localStorage.getItem('boardSize'), 10);
-  } catch (e) {
-    console.warn('localStorage is not available');
-  }
-
+  const boardSize = parseInt(getLocalStorageProp('boardSize'), 10);
   yield put(setBoardSize(boardSize || DEFAULT_BOARD_SIZE));
 
-  try {
-    const playerOLabel = localStorage.getItem('playerOLabel');
-    const playerXLabel = localStorage.getItem('playerXLabel');
+  const playerOLabel = getLocalStorageProp('playerOLabel');
+  if (playerOLabel) {
+    yield put(setOLabel(playerOLabel));
+  }
 
-    if (playerOLabel) {
-      yield put(setOLabel(playerOLabel));
-    }
-
-    if (playerXLabel) {
-      yield put(setXLabel(playerXLabel));
-    }
-  } catch (e) {
-    console.warn('localStorage is not available');
+  const playerXLabel = getLocalStorageProp('playerXLabel');
+  if (playerXLabel) {
+    yield put(setXLabel(playerXLabel));
   }
 }
 
 export function* setBoardSizeSaga({ payload: boardSize }) {
-  try {
-    localStorage.setItem('boardSize', boardSize);
-  } catch (e) {
-    console.warn('localStorage not available');
-  }
-
-  const currBoardSize = yield select(selectBoardSize);
-  if (boardSize !== currBoardSize) {
-    return yield put(initGame());
-  }
+  setLocalStorageProp('boardSize', boardSize);
 }
 
 export function* setPlayerOLabelSaga({ payload: label }) {
+  setLocalStorageProp('playerOLabel', label);
+}
+
+export function* setPlayerXLabelSaga({ payload: label }) {
+  setLocalStorageProp('playerXLabel', label);
+}
+
+function setLocalStorageProp(key, value) {
   try {
-    localStorage.setItem('playerOLabel', label);
+    localStorage.setItem(key, value);
   } catch (e) {
     console.warn('localStorage not available');
   }
 }
 
-export function* setPlayerXLabelSaga({ payload: label }) {
+function getLocalStorageProp(key) {
   try {
-    localStorage.setItem('playerXLabel', label);
+    return localStorage.getItem(key);
   } catch (e) {
-    console.warn('localStorage not available');
+    console.warn('localStorage is not available');
   }
 }
 
